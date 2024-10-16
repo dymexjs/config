@@ -4,7 +4,7 @@ Dymexjs stands for DYnamic, Modular, EXtensible JavaScript/Typescript framework.
 
 Configuration system that allows the use of multiple providers, with support for validation.
 
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/346f8ec7b5cd4c00b704a2144463ce8a)](https://app.codacy.com/gh/dymexjs/config/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/346f8ec7b5cd4c00b704a2144463ce8a)](https://app.codacy.com/gh/dymexjs/config/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/346f8ec7b5cd4c00b704a2144463ce8a)](https://app.codacy.com/gh/dymexjs/config/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
 
 <!-- TOC depthFrom:1 depthTo:5 -->
 
