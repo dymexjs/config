@@ -3,7 +3,7 @@ name: Utils Tests and code analysis
 on:
   push:
     branches-ignore:
-      - master
+      - main
 
 permissions: read-all
 
