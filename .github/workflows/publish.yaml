@@ -3,7 +3,7 @@ name: Npm Publish Utils
 on:
   push:
     branches:
-      - master
+      - main
     tags:
       - v*
 
