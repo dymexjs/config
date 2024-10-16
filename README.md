@@ -4,6 +4,35 @@ Dymexjs stands for DYnamic, Modular, EXtensible JavaScript/Typescript framework.
 
 Configuration system that allows the use of multiple providers, with support for validation.
 
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/346f8ec7b5cd4c00b704a2144463ce8a)](https://app.codacy.com/gh/dymexjs/config/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
+<!-- TOC depthFrom:1 depthTo:5 -->
+
+- [Dymexjs/config](#dymexjsconfig)
+  - [Instalation](#instalation)
+  - [Basic Usage](#basic-usage)
+  - [Description](#description)
+    - [Types](#types)
+      - [ConfigSourceOptions](#configsourceoptions)
+      - [ValidatorFunc](#validatorfunc)
+      - [IConfiguration](#iconfiguration)
+      - [TConfiguration](#tconfiguration)
+    - [Functions `ConfigurationBuilder`](#functions-configurationbuilder)
+      - [addEnvVariablesConfiguration](#addenvvariablesconfiguration)
+      - [addInMemoryConfiguration](#addinmemoryconfiguration)
+      - [addJsonFileConfiguration](#addjsonfileconfiguration)
+      - [addJsFileConfiguration](#addjsfileconfiguration)
+      - [addUserSecretsConfiguration](#addusersecretsconfiguration)
+      - [addEnvFileConfiguration](#addenvfileconfiguration)
+    - [Configuration](#configuration)
+      - [get](#get)
+      - [has](#has)
+      - [set](#set)
+      - [getSection](#getsection)
+      - [getRequiredSection](#getrequiredsection)
+  - [Advanced Usage](#advanced-usage)
+  - [License](#license)
+
 ## Instalation
 
 ```sh
@@ -59,8 +88,8 @@ console.log(config.get("JSON"));
 
 ```typescript
 type ConfigSourceOptions = {
-    expandVariables?: boolean; // default: true
-    validation?: ValidatorFunc;
+  expandVariables?: boolean; // default: true
+  validation?: ValidatorFunc;
 };
 ```
 
@@ -69,26 +98,30 @@ expand variables allows for the transformation of values like `db://${user}:${pa
 #### ValidatorFunc
 
 ```typescript
-type ValidatorFunc = (config: TConfiguration) => Promise<TConfiguration | IConfiguration>;
+type ValidatorFunc = (
+  config: TConfiguration,
+) => Promise<TConfiguration | IConfiguration>;
 ```
 
 #### IConfiguration
 
 ```typescript
 interface IConfiguration {
-    configuration: TConfiguration;
-    get<T>(key: string): T | undefined;
-    has(key: string): boolean;
-    set(key: string | TConfiguration, value?: unknown): void;
-    getSection(key: string): IConfiguration;
-    getRequiredSection(key: string): IConfiguration;
+  configuration: TConfiguration;
+  get<T>(key: string): T | undefined;
+  has(key: string): boolean;
+  set(key: string | TConfiguration, value?: unknown): void;
+  getSection(key: string): IConfiguration;
+  getRequiredSection(key: string): IConfiguration;
 }
 ```
 
 #### TConfiguration
 
 ```typescript
-type TConfiguration = { [key: string]: string | number | boolean | TConfiguration };
+type TConfiguration = {
+  [key: string]: string | number | boolean | TConfiguration;
+};
 ```
 
 ### Functions `ConfigurationBuilder`
@@ -221,9 +254,9 @@ env.test_VARIABLES = "test";
 const configBuilder = new ConfigurationBuilder();
 configBuilder.addEnvVariablesConfiguration("test_");
 configBuilder.addInMemoryConfiguration({
-    MEMORY: "test",
-    MEMORY_ENV: "${test_ENV}",
-    MEMORY_JSON: "memory",
+  MEMORY: "test",
+  MEMORY_ENV: "${test_ENV}",
+  MEMORY_JSON: "memory",
 });
 /*
 {
