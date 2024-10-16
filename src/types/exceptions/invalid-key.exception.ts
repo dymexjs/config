@@ -1,5 +1,5 @@
 export class InvalidKeyException extends Error {
-    constructor() {
-        super(`Invalid key`);
-    }
+  constructor() {
+    super(`Invalid key`);
+  }
 }
