@@ -1,0 +1,33 @@
+name: "Update version and publish"
+
+on:
+  release:
+    types: [released]
+
+jobs:
+  update_version:
+    name: Update Version
+    uses: dymexjs/reusable_workflows/.github/workflows/update-packagejson-version.yml@main
+    permissions:
+      contents: write
+    secrets:
+      deploy-key: ${{ secrets.DEPLOY_KEY }}
+
+  update_changelog:
+    name: Update Changelog
+    needs: [update_version]
+    uses: dymexjs/reusable_workflows/.github/workflows/update-changelog.yml@main
+    permissions:
+      contents: write
+    secrets:
+      deploy-key: ${{ secrets.DEPLOY_KEY }}
+
+  publish:
+    name: Npm Publish
+    needs: [update_changelog]
+    uses: dymexjs/reusable_workflows/.github/workflows/publish-npm.yml@main
+    secrets:
+      npm-token: ${{ secrets.NPM_TOKEN }}
+    permissions:
+      id-token: write
+      contents: read

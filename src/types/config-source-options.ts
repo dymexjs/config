@@ -1,6 +1,6 @@
-import { ValidatorFunc } from "./validator-func.type";
+import { ValidatorFunc } from "./validator-func.type.ts";
 
-export type ConfigSourceOptions = {
+export interface ConfigSourceOptions {
   expandVariables?: boolean;
   validation?: ValidatorFunc;
-};
+}

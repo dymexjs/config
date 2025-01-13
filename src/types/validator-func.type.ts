@@ -1,5 +1,3 @@
-import { IConfiguration, TConfiguration } from "./configuration";
+import { IConfiguration, TConfiguration } from "./configuration.ts";
 
-export type ValidatorFunc = (
-  config: TConfiguration,
-) => Promise<TConfiguration | IConfiguration>;
+export type ValidatorFunc = (config: TConfiguration) => Promise<TConfiguration | IConfiguration>;

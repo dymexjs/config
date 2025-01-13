@@ -1,16 +1,13 @@
 import { PathLike } from "node:fs";
 import { readFile as nodeReadFile } from "node:fs/promises";
-import { TConfiguration } from "../types/configuration";
-import { ConfigurationSource } from "../configuration-source";
-import { ENV_LINE } from "../constants";
-import { ConfigurationBuilder } from "../configuration-builder";
-import { ThrowNullOrUndefined } from "../helpers";
-import { ConfigSourceOptions } from "../types/config-source-options";
+import { TConfiguration } from "../types/configuration.ts";
+import { ConfigurationSource } from "../configuration-source.ts";
+import { ENV_LINE } from "../constants.ts";
+import { ConfigurationBuilder } from "../configuration-builder.ts";
+import { ThrowNullOrUndefined } from "../helpers.ts";
+import { ConfigSourceOptions } from "../types/config-source-options.ts";
 
 export class EnvFilesConfigurationSource extends ConfigurationSource<PathLike> {
-  constructor(file: PathLike, options?: ConfigSourceOptions) {
-    super(file, options);
-  }
   async build(): Promise<TConfiguration> {
     const contents = await this.readFile();
     return this.#parse(contents);
@@ -46,12 +43,9 @@ export class EnvFilesConfigurationSource extends ConfigurationSource<PathLike> {
   }
 }
 
-declare module "../configuration-builder" {
+declare module "../configuration-builder.ts" {
   export interface ConfigurationBuilder {
-    addEnvFileConfiguration(
-      path: PathLike,
-      options?: ConfigSourceOptions,
-    ): ConfigurationBuilder;
+    addEnvFileConfiguration(path: PathLike, options?: ConfigSourceOptions): ConfigurationBuilder;
   }
 }
 function addEnvFileConfiguration(
@@ -64,5 +58,4 @@ function addEnvFileConfiguration(
   return this;
 }
 
-ConfigurationBuilder.prototype.addEnvFileConfiguration =
-  addEnvFileConfiguration;
+ConfigurationBuilder.prototype.addEnvFileConfiguration = addEnvFileConfiguration;

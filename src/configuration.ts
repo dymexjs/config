@@ -1,7 +1,7 @@
-import { deepMixIn, isObject, isUndefined } from "./helpers";
-import { IConfiguration } from "./types/configuration";
-import { InvalidKeyException } from "./types/exceptions/invalid-key.exception";
-import { TConfiguration } from "./types/configuration";
+import { deepMixIn, isObject, isUndefined } from "./helpers.ts";
+import { IConfiguration } from "./types/configuration.ts";
+import { InvalidKeyException } from "./types/exceptions/invalid-key.exception.ts";
+import { TConfiguration } from "./types/configuration.ts";
 
 export class Configuration implements IConfiguration {
   #_configuration: TConfiguration = {};
@@ -78,10 +78,7 @@ export class Configuration implements IConfiguration {
     }
 
     if ((key as string).indexOf(".") !== -1) {
-      const keyValueObj = normalizeKey(
-        key as string,
-        normalizeObject(value as TConfiguration),
-      );
+      const keyValueObj = normalizeKey(key as string, normalizeObject(value as TConfiguration));
       deepMixIn(this.#_configuration, keyValueObj);
       return;
     }
@@ -129,10 +126,7 @@ function normalizeObject(obj: TConfiguration): TConfiguration {
   const config = {};
   for (const [key, value] of Object.entries(obj)) {
     if (key.indexOf(".") !== -1) {
-      const keyValueObj = normalizeKey(
-        key as string,
-        normalizeObject(value as TConfiguration),
-      );
+      const keyValueObj = normalizeKey(key as string, normalizeObject(value as TConfiguration));
       deepMixIn(config, keyValueObj);
       continue;
     }
@@ -147,15 +141,7 @@ function normalizeKey(key: string, value: unknown): TConfiguration {
   let obj = config;
   const last = path.reduce((prev: string, current: string) => {
     const actual = Reflect.get(obj, prev);
-    Reflect.set(
-      obj,
-      prev,
-      !isUndefined(actual)
-        ? actual
-        : parseInt(current).toString() === current
-          ? []
-          : {},
-    );
+    Reflect.set(obj, prev, !isUndefined(actual) ? actual : parseInt(current).toString() === current ? [] : {});
     obj = Reflect.get(obj, prev) as TConfiguration;
     return current;
   });

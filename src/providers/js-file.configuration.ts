@@ -1,14 +1,11 @@
-import { ConfigurationSource } from "../configuration-source";
-import { TConfiguration } from "../types/configuration";
-import { ConfigurationBuilder } from "../configuration-builder";
-import { ThrowNullOrUndefined, isUndefined } from "../helpers";
+import { ConfigurationSource } from "../configuration-source.ts";
+import { TConfiguration } from "../types/configuration.ts";
+import { ConfigurationBuilder } from "../configuration-builder.ts";
+import { ThrowNullOrUndefined, isUndefined } from "../helpers.ts";
 import { PathLike } from "node:fs";
-import { ConfigSourceOptions } from "../types/config-source-options";
+import { ConfigSourceOptions } from "../types/config-source-options.ts";
 
 export class JsFileConfigurationSource extends ConfigurationSource<PathLike> {
-  constructor(file: PathLike, options?: ConfigSourceOptions) {
-    super(file, options);
-  }
   async build(): Promise<TConfiguration> {
     const f = await this.readFile();
     const obj = !isUndefined(f.default) ? structuredClone(f.default) : {};
@@ -26,12 +23,9 @@ export class JsFileConfigurationSource extends ConfigurationSource<PathLike> {
   }
 }
 
-declare module "../configuration-builder" {
+declare module "../configuration-builder.ts" {
   export interface ConfigurationBuilder {
-    addJsFileConfiguration(
-      path: PathLike,
-      options?: ConfigSourceOptions,
-    ): ConfigurationBuilder;
+    addJsFileConfiguration(path: PathLike, options?: ConfigSourceOptions): ConfigurationBuilder;
   }
 }
 function addJsFileConfiguration(

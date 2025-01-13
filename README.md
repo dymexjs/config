@@ -2,12 +2,16 @@
 
 Dymexjs stands for DYnamic, Modular, EXtensible JavaScript/Typescript framework.
 
+[![Released under the MIT license.](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/346f8ec7b5cd4c00b704a2144463ce8a)](https://app.codacy.com/gh/dymexjs/config/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/346f8ec7b5cd4c00b704a2144463ce8a)](https://app.codacy.com/gh/dymexjs/config/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
+[![PRs welcome!](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](.github/CONTRIBUTING.md)
+[![All Contributors](https://img.shields.io/github/all-contributors/dymexjs/collections?color=ee8449&style=flat-square)](#contributors-)
+
 Configuration system that allows the use of multiple providers, with support for validation.
 
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/346f8ec7b5cd4c00b704a2144463ce8a)](https://app.codacy.com/gh/dymexjs/config/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/346f8ec7b5cd4c00b704a2144463ce8a)](https://app.codacy.com/gh/dymexjs/config/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
-
 <!-- TOC depthFrom:1 depthTo:5 -->
-
 - [Dymexjs/config](#dymexjsconfig)
   - [Instalation](#instalation)
   - [Basic Usage](#basic-usage)
@@ -31,7 +35,10 @@ Configuration system that allows the use of multiple providers, with support for
       - [getSection](#getsection)
       - [getRequiredSection](#getrequiredsection)
   - [Advanced Usage](#advanced-usage)
-  - [License](#license)
+  - [Code of Conduct](#code-of-conduct)
+  - [How to Contribute](#how-to-contribute)
+  - [License 📝](#license-)
+  - [Contributors ✨](#contributors-)
 
 ## Instalation
 
@@ -340,14 +347,34 @@ console.log(config.get("new.property"));
 // "value"
 ```
 
-## License
+## Code of Conduct
 
-The MIT License (MIT)
+We expect everyone to abide by our [**Code of Conduct**](./CODE_OF_CONDUCT.md). Please read it.
 
-Copyright (c) 2024 João Parreira
+## How to Contribute
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+Check out our [**Contributing Guide**](./CONTRIBUTING.md) for information on contributing.
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+## License 📝
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Licensed under the [MIT License](./LICENSE).
+
+## Contributors ✨
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/n3okill"><img src="https://avatars.githubusercontent.com/u/1280607?v=4?s=50" width="50px;" alt="João Parreira"/><br /><sub><b>João Parreira</b></sub></a><br /><a href="#maintenance-n3okill" title="Maintenance">🚧</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

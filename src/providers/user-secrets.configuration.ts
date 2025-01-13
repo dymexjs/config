@@ -1,17 +1,14 @@
-import { ConfigurationBuilder } from "../configuration-builder";
-import { ThrowNullOrUndefined } from "../helpers";
+import { ConfigurationBuilder } from "../configuration-builder.ts";
+import { ThrowNullOrUndefined } from "../helpers.ts";
 import { env } from "node:process";
 import { join } from "node:path";
 import { PathLike } from "node:fs";
-import { ConfigurationSource } from "../configuration-source";
-import { TConfiguration } from "../types/configuration";
+import { ConfigurationSource } from "../configuration-source.ts";
+import { TConfiguration } from "../types/configuration.ts";
 import { readFile as nodeReadFile } from "node:fs/promises";
-import { ConfigSourceOptions } from "../types/config-source-options";
+import { ConfigSourceOptions } from "../types/config-source-options.ts";
 
 export class UserSecretsFileConfigurationSource extends ConfigurationSource<PathLike> {
-  constructor(file: PathLike, options?: ConfigSourceOptions) {
-    super(file, options);
-  }
   async build(): Promise<TConfiguration> {
     const contents = await this.readFile();
     return JSON.parse(contents);
@@ -22,13 +19,9 @@ export class UserSecretsFileConfigurationSource extends ConfigurationSource<Path
   }
 }
 
-declare module "../configuration-builder" {
+declare module "../configuration-builder.ts" {
   export interface ConfigurationBuilder {
-    addUserSecretsConfiguration(
-      id: string,
-      path?: PathLike,
-      options?: ConfigSourceOptions,
-    ): ConfigurationBuilder;
+    addUserSecretsConfiguration(id: string, path?: PathLike, options?: ConfigSourceOptions): ConfigurationBuilder;
   }
 }
 function addUserSecretsConfiguration(
@@ -49,5 +42,4 @@ function addUserSecretsConfiguration(
   return this;
 }
 
-ConfigurationBuilder.prototype.addUserSecretsConfiguration =
-  addUserSecretsConfiguration;
+ConfigurationBuilder.prototype.addUserSecretsConfiguration = addUserSecretsConfiguration;
