@@ -1,17 +1,12 @@
 import { env } from "node:process";
-import { TConfiguration } from "../types/configuration";
-import { ConfigurationBuilder } from "../configuration-builder";
-import { ConfigurationSource } from "../configuration-source";
-import { ThrowNullOrUndefined } from "../helpers";
-import { ConfigSourceOptions } from "../types/config-source-options";
+import { TConfiguration } from "../types/configuration.ts";
+import { ConfigurationBuilder } from "../configuration-builder.ts";
+import { ConfigurationSource } from "../configuration-source.ts";
+import { ThrowNullOrUndefined } from "../helpers.ts";
+import { ConfigSourceOptions } from "../types/config-source-options.ts";
 
-export class EnvVariablesConfigurationSource extends ConfigurationSource<
-  string | Array<string>
-> {
-  constructor(
-    prefix: string | Array<string> = "",
-    options?: ConfigSourceOptions,
-  ) {
+export class EnvVariablesConfigurationSource extends ConfigurationSource<string | Array<string>> {
+  constructor(prefix: string | Array<string> = "", options?: ConfigSourceOptions) {
     super(prefix, options);
   }
 
@@ -21,32 +16,23 @@ export class EnvVariablesConfigurationSource extends ConfigurationSource<
       for (const prefix of this.dataOlder) {
         obj = {
           ...obj,
-          ...Object.fromEntries(
-            Object.entries(env).filter(([key]) => key.startsWith(prefix)),
-          ),
+          ...Object.fromEntries(Object.entries(env).filter(([key]) => key.startsWith(prefix))),
         };
       }
     } else {
       if (this.dataOlder === "") {
         return env as unknown as TConfiguration;
       }
-      obj = Object.fromEntries(
-        Object.entries(env).filter(([key]) =>
-          key.startsWith(this.dataOlder as string),
-        ),
-      );
+      obj = Object.fromEntries(Object.entries(env).filter(([key]) => key.startsWith(this.dataOlder as string)));
     }
 
     return obj;
   }
 }
 
-declare module "../configuration-builder" {
+declare module "../configuration-builder.ts" {
   export interface ConfigurationBuilder {
-    addEnvVariablesConfiguration(
-      prefix?: string | Array<string>,
-      options?: ConfigSourceOptions,
-    ): ConfigurationBuilder;
+    addEnvVariablesConfiguration(prefix?: string | Array<string>, options?: ConfigSourceOptions): ConfigurationBuilder;
   }
 }
 function addEnvVariablesConfiguration(
@@ -59,5 +45,4 @@ function addEnvVariablesConfiguration(
   return this;
 }
 
-ConfigurationBuilder.prototype.addEnvVariablesConfiguration =
-  addEnvVariablesConfiguration;
+ConfigurationBuilder.prototype.addEnvVariablesConfiguration = addEnvVariablesConfiguration;

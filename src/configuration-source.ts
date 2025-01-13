@@ -1,13 +1,13 @@
-import { TConfiguration } from "./types/configuration";
-import { expand } from "./helpers";
-import { ConfigSourceOptions } from "./types/config-source-options";
-import { IConfiguration } from "./types/configuration";
-import { ValidatorFunc } from "./types/validator-func.type";
+import { TConfiguration } from "./types/configuration.ts";
+import { expand } from "./helpers.ts";
+import { ConfigSourceOptions } from "./types/config-source-options.ts";
+import { IConfiguration } from "./types/configuration.ts";
+import { ValidatorFunc } from "./types/validator-func.type.ts";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class ConfigurationSource<T = any> {
   protected dataOlder: T;
-  protected expandVariables: boolean = true;
+  protected expandVariables = true;
   protected validation: ValidatorFunc = (config) => Promise.resolve(config);
 
   constructor(dataOlder: T, options: ConfigSourceOptions = {}) {
@@ -20,12 +20,10 @@ export abstract class ConfigurationSource<T = any> {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   async preBuild(): Promise<void> {}
   abstract build(): Promise<TConfiguration>;
-  async postBuild(
-    config: TConfiguration,
-    configuration: IConfiguration,
-  ): Promise<TConfiguration> {
+  async postBuild(config: TConfiguration, configuration: IConfiguration): Promise<TConfiguration> {
     if (this.expandVariables) {
       expand(config, configuration);
     }

@@ -1,0 +1,20 @@
+{
+  "projectName": "dymexjs/config",
+  "projectOwner": "dymexjs",
+  "files": ["README.md"],
+  "imageSize": 50,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributorsPerLine": 7,
+  "contributors": [
+    {
+      "login": "n3okill",
+      "name": "João Parreira",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1280607?v=4",
+      "profile": "https://github.com/n3okill",
+      "contributions": ["maintenance"]
+    }
+  ]
+}

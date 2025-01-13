@@ -1,15 +1,12 @@
-import { ConfigurationSource } from "../configuration-source";
-import { TConfiguration } from "../types/configuration";
-import { ConfigurationBuilder } from "../configuration-builder";
-import { ThrowNullOrUndefined } from "../helpers";
+import { ConfigurationSource } from "../configuration-source.ts";
+import { TConfiguration } from "../types/configuration.ts";
+import { ConfigurationBuilder } from "../configuration-builder.ts";
+import { ThrowNullOrUndefined } from "../helpers.ts";
 import { PathLike } from "node:fs";
 import { readFile as nodeReadFile } from "node:fs/promises";
-import { ConfigSourceOptions } from "../types/config-source-options";
+import { ConfigSourceOptions } from "../types/config-source-options.ts";
 
 export class JsonFileConfigurationSource extends ConfigurationSource<PathLike> {
-  constructor(file: PathLike, options?: ConfigSourceOptions) {
-    super(file, options);
-  }
   async build(): Promise<TConfiguration> {
     const contents = await this.readFile();
     return JSON.parse(contents);
@@ -20,12 +17,9 @@ export class JsonFileConfigurationSource extends ConfigurationSource<PathLike> {
   }
 }
 
-declare module "../configuration-builder" {
+declare module "../configuration-builder.ts" {
   export interface ConfigurationBuilder {
-    addJsonFileConfiguration(
-      path: PathLike,
-      options?: ConfigSourceOptions,
-    ): ConfigurationBuilder;
+    addJsonFileConfiguration(path: PathLike, options?: ConfigSourceOptions): ConfigurationBuilder;
   }
 }
 function addJsonFileConfiguration(
@@ -38,5 +32,4 @@ function addJsonFileConfiguration(
   return this;
 }
 
-ConfigurationBuilder.prototype.addJsonFileConfiguration =
-  addJsonFileConfiguration;
+ConfigurationBuilder.prototype.addJsonFileConfiguration = addJsonFileConfiguration;

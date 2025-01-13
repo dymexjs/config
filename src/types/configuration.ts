@@ -1,6 +1,6 @@
-export type TConfiguration = {
+export interface TConfiguration {
   [key: string]: string | number | boolean | TConfiguration;
-};
+}
 
 export interface IConfiguration {
   configuration: TConfiguration;

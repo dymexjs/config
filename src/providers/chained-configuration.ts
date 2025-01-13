@@ -1,26 +1,19 @@
-import { ConfigurationSource } from "../configuration-source";
-import { IConfiguration } from "../types/configuration";
-import { ConfigurationBuilder } from "../configuration-builder";
-import { ThrowNullOrUndefined } from "../helpers";
-import { TConfiguration } from "../types/configuration";
-import { ConfigSourceOptions } from "../types/config-source-options";
+import { ConfigurationSource } from "../configuration-source.ts";
+import { IConfiguration } from "../types/configuration.ts";
+import { ConfigurationBuilder } from "../configuration-builder.ts";
+import { ThrowNullOrUndefined } from "../helpers.ts";
+import { TConfiguration } from "../types/configuration.ts";
+import { ConfigSourceOptions } from "../types/config-source-options.ts";
 
 export class ChainedConfigurationSource extends ConfigurationSource<IConfiguration> {
-  constructor(config: IConfiguration, options?: ConfigSourceOptions) {
-    super(config, options);
-  }
-
   async build(): Promise<TConfiguration> {
     return this.dataOlder.configuration;
   }
 }
 
-declare module "../configuration-builder" {
+declare module "../configuration-builder.ts" {
   export interface ConfigurationBuilder {
-    addConfiguration(
-      config: IConfiguration,
-      options?: ConfigSourceOptions,
-    ): ConfigurationBuilder;
+    addConfiguration(config: IConfiguration, options?: ConfigSourceOptions): ConfigurationBuilder;
   }
 }
 

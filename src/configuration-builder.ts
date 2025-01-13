@@ -1,11 +1,11 @@
-import { Configuration } from "./configuration";
-import { ConfigurationSource } from "./configuration-source";
-import { ThrowNullOrUndefined } from "./helpers";
-import { IConfiguration, TConfiguration } from "./types/configuration";
-import { ValidatorFunc } from "./types/validator-func.type";
+import { Configuration } from "./configuration.ts";
+import { ConfigurationSource } from "./configuration-source.ts";
+import { ThrowNullOrUndefined } from "./helpers.ts";
+import { IConfiguration, TConfiguration } from "./types/configuration.ts";
+import { ValidatorFunc } from "./types/validator-func.type.ts";
 
 export class ConfigurationBuilder {
-  #_sources: Set<ConfigurationSource<unknown>> = new Set();
+  #_sources = new Set<ConfigurationSource<unknown>>();
   #_validator: ValidatorFunc;
   get sources(): Set<ConfigurationSource<unknown>> {
     return this.#_sources;
@@ -29,9 +29,7 @@ export class ConfigurationBuilder {
       config = await source.postBuild(config, configuration);
       configuration.set(config);
     }
-    const configurationAux = await this.#_validator(
-      configuration.configuration,
-    );
+    const configurationAux = await this.#_validator(configuration.configuration);
     if (configurationAux instanceof Configuration) {
       return configurationAux;
     } else {

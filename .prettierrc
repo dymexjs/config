@@ -1,6 +1,5 @@
 {
-    "semi": true,
-    "printWidth": 80,
-    "tabWidth": 2,
-    "proseWrap": "never"
+  "semi": true,
+  "printWidth": 120,
+  "tabWidth": 2
 }
