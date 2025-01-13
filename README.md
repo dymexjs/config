@@ -367,7 +367,7 @@ Licensed under the [MIT License](./LICENSE).
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/n3okill"><img src="https://avatars.githubusercontent.com/u/1280607?v=4?s=50" width="50px;" alt="João Parreira"/><br /><sub><b>João Parreira</b></sub></a><br /><a href="#maintenance-n3okill" title="Maintenance">🚧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/n3okill"><img src="https://avatars.githubusercontent.com/u/1280607?v=4?s=50" width="50px;" alt="João Parreira"/><br /><sub><b>João Parreira</b></sub></a><br /><a href="#maintenance-n3okill" title="Maintenance">🚧</a> <a href="https://github.com/dymexjs/config/commits?author=n3okill" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

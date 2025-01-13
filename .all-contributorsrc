@@ -1,7 +1,9 @@
 {
-  "projectName": "dymexjs/config",
+  "projectName": "config",
   "projectOwner": "dymexjs",
-  "files": ["README.md"],
+  "files": [
+    "README.md"
+  ],
   "imageSize": 50,
   "repoType": "github",
   "repoHost": "https://github.com",
@@ -14,7 +16,10 @@
       "name": "João Parreira",
       "avatar_url": "https://avatars.githubusercontent.com/u/1280607?v=4",
       "profile": "https://github.com/n3okill",
-      "contributions": ["maintenance"]
+      "contributions": [
+        "maintenance",
+        "code"
+      ]
     }
   ]
 }
