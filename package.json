@@ -1,6 +1,6 @@
 {
   "name": "@dymexjs/config",
-  "version": "0.0.2",
+  "version": "v0.1.0",
   "description": "Dymexjs Configuration system",
   "publishConfig": {
     "access": "public"
