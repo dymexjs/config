@@ -33,7 +33,7 @@ export function expand(obj: TConfiguration, config: IConfiguration): TConfigurat
     if (typeof value === "string") {
       let valueAux = interpolate(value, obj, config);
       valueAux = resolveEscapeSequence(valueAux);
-      Reflect.set(obj, key, valueAux);
+      Object.defineProperty(obj, key, { value: valueAux, enumerable: true, writable: true });
     } else if (isObject(value)) {
       expand(value, config);
     }
@@ -81,7 +81,7 @@ function resolveEscapeSequence(value: string): string {
 export function deepMixIn(target: TConfiguration, source: TConfiguration): void {
   for (const [key, value] of Object.entries(source)) {
     if (!Object.prototype.hasOwnProperty.call(target, key)) {
-      Reflect.set(target, key, value);
+      Object.defineProperty(target, key, { value, enumerable: true, writable: true });
     } else if (isObject(value) && isObject(Reflect.get(target, key))) {
       deepMixIn(Reflect.get(target, key) as TConfiguration, value as TConfiguration);
     } else {

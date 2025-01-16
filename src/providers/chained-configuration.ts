@@ -13,6 +13,13 @@ export class ChainedConfigurationSource extends ConfigurationSource<IConfigurati
 
 declare module "../configuration-builder.ts" {
   export interface ConfigurationBuilder {
+    /**
+     * Adds a chained configuration source to the configuration builder.
+     *
+     * @param config - The configuration to be added.
+     * @param options - Optional configuration source options.
+     * @returns The configuration builder instance.
+     */
     addConfiguration(config: IConfiguration, options?: ConfigSourceOptions): ConfigurationBuilder;
   }
 }
@@ -22,7 +29,9 @@ function addConfiguration(
   config: IConfiguration,
   options?: ConfigSourceOptions,
 ): ConfigurationBuilder {
+  // Ensure the configuration is not null or undefined
   ThrowNullOrUndefined(config, "config");
+  // Add the chained configuration source to the builder
   this.sources.add(new ChainedConfigurationSource(config, options));
   return this;
 }

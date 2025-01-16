@@ -121,18 +121,10 @@ describe("@Dymexjs/config", () => {
           config.get("NO_CURLY_BRACES_URI_RECURSIVELY"),
           "mongodb://username:password@abcd1234.mongolab.com:12345/heroku_db",
         );
+        assert.strictEqual(config.get("UNDEFINED_EXPAND_DEFAULT_SPECIAL_CHARACTERS"), "/default/path:with/colon");
+        assert.strictEqual(config.get("UNDEFINED_EXPAND_DEFAULT_SPECIAL_CHARACTERS2"), "/default/path:with/colon");
         assert.strictEqual(
-          config.get("UNDEFINED_EXPAND_DEFAULT_SPECIAL_CHARACTERS"),
-          "/default/path:with/colon",
-        );
-        assert.strictEqual(
-          config.get("UNDEFINED_EXPAND_DEFAULT_SPECIAL_CHARACTERS2"),
-          "/default/path:with/colon",
-        );
-        assert.strictEqual(
-          config.get(
-            "NO_CURLY_BRACES_UNDEFINED_EXPAND_DEFAULT_SPECIAL_CHARACTERS",
-          ),
+          config.get("NO_CURLY_BRACES_UNDEFINED_EXPAND_DEFAULT_SPECIAL_CHARACTERS"),
           "/default/path:with/colon",
         );
         assert.strictEqual(config.get("POSTGRESQL.MAIN.USER"), "postgres");
@@ -242,9 +234,7 @@ describe("@Dymexjs/config", () => {
           "readFile" as any,
           async () => "ENV=test\nKEY1=key1\nPORT=3000",
         );
-        await assert.doesNotReject(
-          async () => await configurationBuilder.build(),
-        );
+        await assert.doesNotReject(async () => await configurationBuilder.build());
         const config = await configurationBuilder.build();
         assert.strictEqual(typeof config.get("PORT"), "number");
       });
@@ -272,10 +262,7 @@ describe("@Dymexjs/config", () => {
           "readFile" as any,
           async () => "ENV=test\nKEY1=key1",
         );
-        await assert.rejects(
-          async () => await configurationBuilder.build(),
-          /Validation failed/,
-        );
+        await assert.rejects(async () => await configurationBuilder.build(), /Validation failed/);
       });
     });
   });

@@ -61,9 +61,7 @@ describe("@Dymexjs/config", () => {
         "readFile" as any,
         async () => JSON.stringify({ ENV: "development", KEY1: "bar" }),
       );
-      await assert.doesNotReject(
-        async () => await configurationBuilder.build(),
-      );
+      await assert.doesNotReject(async () => await configurationBuilder.build());
     });
     test("validation fail", async (t) => {
       const configurationBuilder = new ConfigurationBuilder();
@@ -89,10 +87,7 @@ describe("@Dymexjs/config", () => {
         "readFile" as any,
         async () => JSON.stringify({ ENV: "development", KEY1: "bar" }),
       );
-      await assert.rejects(
-        async () => await configurationBuilder.build(),
-        /Validation failed/,
-      );
+      await assert.rejects(async () => await configurationBuilder.build(), /Validation failed/);
     });
   });
 });

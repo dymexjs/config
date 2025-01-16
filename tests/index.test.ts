@@ -30,9 +30,7 @@ describe("@Dymexjs/config", () => {
 
       const config = await configurationBuilder.build();
 
-      const chained = await new ConfigurationBuilder()
-        .addConfiguration(config)
-        .build();
+      const chained = await new ConfigurationBuilder().addConfiguration(config).build();
       const memVal1 = chained.get(`key1.key1`);
       const memVal2 = chained.get(`key2.key2`);
       const memVal3 = chained.get(`key3.key3`);
@@ -97,10 +95,7 @@ describe("@Dymexjs/config", () => {
       const configurationBuilder = new ConfigurationBuilder();
       configurationBuilder.addInMemoryConfiguration(dict);
       const config = await configurationBuilder.build();
-      assert.throws(
-        () => config.getRequiredSection("Mem1.Deep2"),
-        /Required section Mem1.Deep2 not found/,
-      );
+      assert.throws(() => config.getRequiredSection("Mem1.Deep2"), /Required section Mem1.Deep2 not found/);
     });
   });
   describe("Configuration", () => {
@@ -112,10 +107,7 @@ describe("@Dymexjs/config", () => {
     });
     test("should set simple property key and value", () => {
       const config = new Configuration();
-      assert.throws(
-        () => config.set(true as unknown as string),
-        InvalidKeyException,
-      );
+      assert.throws(() => config.set(true as unknown as string), InvalidKeyException);
       config.set("key", "value");
       assert.strictEqual(config.has("key"), true);
       assert.strictEqual(config.get("key"), "value");
@@ -186,12 +178,14 @@ describe("@Dymexjs/config", () => {
       configBuilder.addJsFileConfiguration("env.js");
       configBuilder.addUserSecretsConfiguration("id", "env.json");
       configBuilder.addEnvFileConfiguration(".env");
+      //env.json
       t.mock.method(
         Array.from(configBuilder.sources.values())[2],
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         "readFile" as any,
         async () => JSON.stringify({ JSON: "test" }),
       );
+      //env.js
       t.mock.method(
         Array.from(configBuilder.sources.values())[3],
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -200,12 +194,14 @@ describe("@Dymexjs/config", () => {
           JS: "test",
         }),
       );
+      //env.json - user secrets
       t.mock.method(
         Array.from(configBuilder.sources.values())[4],
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         "readFile" as any,
         async () => JSON.stringify({ USER_SECRETS: "test" }),
       );
+      //.env
       t.mock.method(
         Array.from(configBuilder.sources.values())[5],
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -241,6 +237,7 @@ describe("@Dymexjs/config", () => {
       configBuilder.addJsFileConfiguration("env.js");
       configBuilder.addUserSecretsConfiguration("id", "env.json");
       configBuilder.addEnvFileConfiguration(".env");
+      //env.json
       t.mock.method(
         Array.from(configBuilder.sources.values())[2],
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -253,6 +250,7 @@ describe("@Dymexjs/config", () => {
             JSON_PASSWORD: "password",
           }),
       );
+      //env.js
       t.mock.method(
         Array.from(configBuilder.sources.values())[3],
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -261,10 +259,10 @@ describe("@Dymexjs/config", () => {
           JS: "test",
           JS_ENV: "${JSON_JS}",
           JS_USER: "user",
-          "JS_MONGO.DB.URI":
-            "mongodb://${JS_USER}:${JSON_PASSWORD}@localhost:27017/test",
+          "JS_MONGO.DB.URI": "mongodb://${JS_USER}:${JSON_PASSWORD}@localhost:27017/test",
         }),
       );
+      //env.json - user secrets
       t.mock.method(
         Array.from(configBuilder.sources.values())[4],
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -278,6 +276,7 @@ describe("@Dymexjs/config", () => {
             MONGODB: "${JS_MONGO.DB.URI}",
           }),
       );
+      //.env
       t.mock.method(
         Array.from(configBuilder.sources.values())[5],
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -320,8 +319,7 @@ describe("@Dymexjs/config", () => {
   describe("other", () => {
     test("should throw when source is not a ConfigurationSource", () => {
       assert.throws(
-        () =>
-          new ConfigurationBuilder().add({} as ConfigurationSource<unknown>),
+        () => new ConfigurationBuilder().add({} as ConfigurationSource<unknown>),
         /'source' must be instance of ConfigurationSource/,
       );
     });
@@ -357,10 +355,7 @@ describe("@Dymexjs/config", () => {
       };
       const configBuilder = new ConfigurationBuilder(validationFunc);
       configBuilder.addInMemoryConfiguration({ key1: { key2: "ValueInMem1" } });
-      await assert.rejects(
-        async () => await configBuilder.build(),
-        /Validation failed/,
-      );
+      await assert.rejects(async () => await configBuilder.build(), /Validation failed/);
     });
   });
 });

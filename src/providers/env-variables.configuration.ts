@@ -1,4 +1,4 @@
-import { env } from "node:process";
+import { env as originalEnv } from "node:process";
 import { TConfiguration } from "../types/configuration.ts";
 import { ConfigurationBuilder } from "../configuration-builder.ts";
 import { ConfigurationSource } from "../configuration-source.ts";
@@ -11,6 +11,7 @@ export class EnvVariablesConfigurationSource extends ConfigurationSource<string 
   }
 
   async build(): Promise<TConfiguration> {
+    const env = structuredClone(originalEnv);
     let obj = {};
     if (Array.isArray(this.dataOlder)) {
       for (const prefix of this.dataOlder) {
@@ -32,9 +33,18 @@ export class EnvVariablesConfigurationSource extends ConfigurationSource<string 
 
 declare module "../configuration-builder.ts" {
   export interface ConfigurationBuilder {
+    /**
+     * Adds environment variables as a source of configuration.
+     *
+     * @param prefix - The prefix to use for the environment variables.
+     *                 If a string or an array is passed, it will be used as the prefixes and the variables will be merged.
+     * @param options - Options for the source.
+     * @returns The configuration builder instance.
+     */
     addEnvVariablesConfiguration(prefix?: string | Array<string>, options?: ConfigSourceOptions): ConfigurationBuilder;
   }
 }
+
 function addEnvVariablesConfiguration(
   this: ConfigurationBuilder,
   prefix: string | Array<string> = "",
