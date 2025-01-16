@@ -1,9 +1,5 @@
 import { test, describe } from "node:test";
-import {
-  ConfigurationBuilder,
-  MemoryConfigurationSource,
-  TConfiguration,
-} from "../../src";
+import { ConfigurationBuilder, MemoryConfigurationSource, TConfiguration } from "../../src";
 import * as assert from "node:assert/strict";
 import Joi from "joi";
 
@@ -44,18 +40,9 @@ describe("@Dymexjs/config", () => {
       const memVal2 = config.get(`key2.key2`);
       const memVal3 = config.get(`key3.key3`);
 
-      assert.strictEqual(
-        Array.from(configurationBuilder.sources.values())[0],
-        memConfigSrc1,
-      );
-      assert.strictEqual(
-        Array.from(configurationBuilder.sources.values())[1],
-        memConfigSrc2,
-      );
-      assert.strictEqual(
-        Array.from(configurationBuilder.sources.values())[2],
-        memConfigSrc3,
-      );
+      assert.strictEqual(Array.from(configurationBuilder.sources.values())[0], memConfigSrc1);
+      assert.strictEqual(Array.from(configurationBuilder.sources.values())[1], memConfigSrc2);
+      assert.strictEqual(Array.from(configurationBuilder.sources.values())[2], memConfigSrc3);
 
       assert.strictEqual(memVal1, "ValueInMem1");
       assert.strictEqual(memVal2, "ValueInMem2");
@@ -82,9 +69,7 @@ describe("@Dymexjs/config", () => {
         .addInMemoryConfiguration({ keya: { keyb: "valueA" } })
         .addInMemoryConfiguration({ keya: { keyb: "valueB" } })
         .build();
-      const newConfigurationRoot = await new ConfigurationBuilder()
-        .addInMemoryConfiguration(configurationRoot)
-        .build();
+      const newConfigurationRoot = await new ConfigurationBuilder().addInMemoryConfiguration(configurationRoot).build();
       const value = newConfigurationRoot.get(`keya.keyb`);
       assert.strictEqual(value, "valueB");
     });
@@ -102,10 +87,7 @@ describe("@Dymexjs/config", () => {
 
       await configurationBuilder.build();
 
-      assert.deepEqual(
-        configurationBuilder.sources,
-        new Set([memConfigSrc1, memConfigSrc2, memConfigSrc3]),
-      );
+      assert.deepEqual(configurationBuilder.sources, new Set([memConfigSrc1, memConfigSrc2, memConfigSrc3]));
     });
     test("validation", async () => {
       const configurationBuilder = new ConfigurationBuilder();
@@ -129,9 +111,7 @@ describe("@Dymexjs/config", () => {
           },
         },
       );
-      await assert.doesNotReject(
-        async () => await configurationBuilder.build(),
-      );
+      await assert.doesNotReject(async () => await configurationBuilder.build());
     });
     test("validation fail", async () => {
       const configurationBuilder = new ConfigurationBuilder();
@@ -155,10 +135,7 @@ describe("@Dymexjs/config", () => {
           },
         },
       );
-      await assert.rejects(
-        async () => await configurationBuilder.build(),
-        /Validation failed/,
-      );
+      await assert.rejects(async () => await configurationBuilder.build(), /Validation failed/);
     });
   });
 });

@@ -32,9 +32,7 @@ describe("@Dymexjs/config", () => {
           }
         },
       });
-      await assert.doesNotReject(
-        async () => await configurationBuilder.build(),
-      );
+      await assert.doesNotReject(async () => await configurationBuilder.build());
       delete env.test_key1;
     });
     test("validation fail", async () => {
@@ -55,10 +53,7 @@ describe("@Dymexjs/config", () => {
           }
         },
       });
-      await assert.rejects(
-        async () => await configurationBuilder.build(),
-        /Validation failed/,
-      );
+      await assert.rejects(async () => await configurationBuilder.build(), /Validation failed/);
       delete env.test_key1;
     });
   });
