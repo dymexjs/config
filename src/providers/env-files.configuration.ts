@@ -37,7 +37,7 @@ export class EnvFilesConfigurationSource extends ConfigurationSource<PathLike> {
       }
 
       // Add to object
-      Reflect.set(obj, key, value);
+      Object.defineProperty(obj, key, { value, enumerable: true, writable: true });
     }
     return obj;
   }
@@ -45,9 +45,21 @@ export class EnvFilesConfigurationSource extends ConfigurationSource<PathLike> {
 
 declare module "../configuration-builder.ts" {
   export interface ConfigurationBuilder {
+    /**
+     * Adds a source of configuration from a file containing environment variables.
+     * The file should have the format of a .env file, with each line being a key-value pair of the form `KEY=VALUE`.
+     * The values can be either single-lined or multi-lined.
+     * The values can contain newlines and tabs.
+     * The values can contain substitutions of the form `${KEY}` which will be replaced with the value of the environment variable with the same name.
+     * The values can contain comments of the form `# comment`, which will be ignored.
+     * @param path - The path to the file.
+     * @param options - Options for the source.
+     * @returns The configuration builder instance.
+     */
     addEnvFileConfiguration(path: PathLike, options?: ConfigSourceOptions): ConfigurationBuilder;
   }
 }
+
 function addEnvFileConfiguration(
   this: ConfigurationBuilder,
   path: PathLike,

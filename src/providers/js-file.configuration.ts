@@ -8,10 +8,10 @@ import { ConfigSourceOptions } from "../types/config-source-options.ts";
 export class JsFileConfigurationSource extends ConfigurationSource<PathLike> {
   async build(): Promise<TConfiguration> {
     const f = await this.readFile();
-    const obj = !isUndefined(f.default) ? structuredClone(f.default) : {};
+    const obj = !isUndefined(f.default) ? f.default : {};
     for (const [key, value] of Object.entries(f)) {
       if (key !== "default") {
-        Reflect.set(obj, key, structuredClone(value));
+        Object.defineProperty(obj, key, { value, enumerable: true, writable: true });
       }
     }
     return obj;
@@ -25,9 +25,17 @@ export class JsFileConfigurationSource extends ConfigurationSource<PathLike> {
 
 declare module "../configuration-builder.ts" {
   export interface ConfigurationBuilder {
+    /**
+     * Adds a source of configuration from a js file.
+     * Any exports will be cloned into the configuration object.
+     * @param path - The path to the file.
+     * @param options - Options for the source.
+     * @returns The configuration builder instance.
+     */
     addJsFileConfiguration(path: PathLike, options?: ConfigSourceOptions): ConfigurationBuilder;
   }
 }
+
 function addJsFileConfiguration(
   this: ConfigurationBuilder,
   path: PathLike,

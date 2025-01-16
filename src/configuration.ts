@@ -130,7 +130,11 @@ function normalizeObject(obj: TConfiguration): TConfiguration {
       deepMixIn(config, keyValueObj);
       continue;
     }
-    Reflect.set(config, key, normalizeObject(value as TConfiguration));
+    Object.defineProperty(config, key, {
+      value: normalizeObject(value as TConfiguration),
+      enumerable: true,
+      writable: true,
+    });
   }
   return config;
 }
@@ -141,11 +145,15 @@ function normalizeKey(key: string, value: unknown): TConfiguration {
   let obj = config;
   const last = path.reduce((prev: string, current: string) => {
     const actual = Reflect.get(obj, prev);
-    Reflect.set(obj, prev, !isUndefined(actual) ? actual : parseInt(current).toString() === current ? [] : {});
+    Object.defineProperty(obj, prev, {
+      writable: true,
+      enumerable: true,
+      value: !isUndefined(actual) ? actual : parseInt(current).toString() === current ? [] : {},
+    });
     obj = Reflect.get(obj, prev) as TConfiguration;
     return current;
   });
 
-  Reflect.set(obj, last, value);
+  Object.defineProperty(obj, last, { value, writable: true, enumerable: true });
   return config;
 }

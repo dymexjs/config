@@ -21,9 +21,21 @@ export class UserSecretsFileConfigurationSource extends ConfigurationSource<Path
 
 declare module "../configuration-builder.ts" {
   export interface ConfigurationBuilder {
+    /**
+     * Adds a user secrets configuration source to the configuration builder.
+     * The user secrets configuration source will search for a file in the user's
+     * home directory (or the appdata directory on Windows) with the given id and
+     * the name "secrets.json".
+     * @param id - The id of the user secrets configuration source.
+     * @param path - The path to the file. If not provided, it will be determined
+     *               based on the user's home directory.
+     * @param options - Options for the source.
+     * @returns The configuration builder instance.
+     */
     addUserSecretsConfiguration(id: string, path?: PathLike, options?: ConfigSourceOptions): ConfigurationBuilder;
   }
 }
+
 function addUserSecretsConfiguration(
   this: ConfigurationBuilder,
   id: string,
@@ -32,9 +44,10 @@ function addUserSecretsConfiguration(
 ): ConfigurationBuilder {
   ThrowNullOrUndefined(id, "id");
   if (!path) {
-    const p = env.HOME || env.home || env.appdata || env.userprofile;
+    const homePaths = [env.HOME, env.home, env.appdata, env.userprofile];
+    const p = homePaths.find((x) => x !== undefined);
     if (!p) {
-      throw new Error("Could not set a root path for user secrets file");
+      throw new Error("Could not determine a root path for user secrets file");
     }
     path = join(p, ".config", id, "secrets.json");
   }
