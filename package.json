@@ -27,10 +27,11 @@
     "url": "https://github.com/dymexjs/config/issues"
   },
   "scripts": {
-    "build:cjs": "npx tsc -p tsconfig.cjs.json && echo {\"type\": \"commonjs\"} > dist/cjs/package.json",
-    "build:esm": "npx tsc -p tsconfig.esm.json && echo {\"type\": \"module\"} > dist/esm/package.json",
+    "build:cjs": "npx tsc -p tsconfig.cjs.json",
+    "build:esm": "npx tsc -p tsconfig.esm.json",
     "build:types": "npx tsc -p tsconfig.types.json",
-    "build": "npm run clean && npm run build:cjs && npm run build:esm && npm run build:types",
+    "build:packageJson": "node ./write_package-json.js",
+    "build": "npm run clean && npm run build:cjs && npm run build:esm && npm run build:types && npm run build:packageJson",
     "clean": "npx rimraf dist",
     "lint": "eslint",
     "test": "globcli -- tsx --test \"tests/**/*.test.ts\"",
@@ -46,16 +47,16 @@
   "license": "ISC",
   "devDependencies": {
     "@dymexjs/globcli": "^0.0.4",
-    "@eslint/js": "^9.10.0",
-    "@types/node": "^22.10.7",
-    "eslint": "^9.17.0",
+    "@eslint/js": "^9.20.0",
+    "@types/node": "^22.13.1",
+    "eslint": "^9.20.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-security": "^3.0.1",
     "joi": "^17.13.3",
-    "prettier": "3.4.2",
-    "rimraf": "^5.0.10",
+    "prettier": "3.5.0",
+    "rimraf": "^6.0.1",
     "tsx": "^4.19.2",
-    "typescript": "^5.7.2",
-    "typescript-eslint": "^8.21.0"
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.23.0"
   }
 }

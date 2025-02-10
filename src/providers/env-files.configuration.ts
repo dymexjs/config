@@ -1,23 +1,23 @@
-import { PathLike } from "node:fs";
+import { type PathLike } from "node:fs";
 import { readFile as nodeReadFile } from "node:fs/promises";
-import { TConfiguration } from "../types/configuration.ts";
+import { type TConfiguration } from "../types/configuration.ts";
 import { ConfigurationSource } from "../configuration-source.ts";
 import { ENV_LINE } from "../constants.ts";
 import { ConfigurationBuilder } from "../configuration-builder.ts";
 import { ThrowNullOrUndefined } from "../helpers.ts";
-import { ConfigSourceOptions } from "../types/config-source-options.ts";
+import { type ConfigSourceOptions } from "../types/config-source-options.ts";
 
 export class EnvFilesConfigurationSource extends ConfigurationSource<PathLike> {
   async build(): Promise<TConfiguration> {
     const contents = await this.readFile();
-    return this.#parse(contents);
+    return this.parse(contents);
   }
 
   private async readFile(): Promise<string> {
     // eslint-disable-next-line security/detect-non-literal-fs-filename
     return nodeReadFile(this.dataOlder, { encoding: "utf8", flag: "r" });
   }
-  #parse(content: string): TConfiguration {
+  private parse(content: string): TConfiguration {
     const obj = {};
     const contents = content.replace(/\r\n?/gm, "\n");
 

@@ -1,9 +1,9 @@
 import { ConfigurationSource } from "../configuration-source.ts";
-import { TConfiguration } from "../types/configuration.ts";
+import { type TConfiguration } from "../types/configuration.ts";
 import { ConfigurationBuilder } from "../configuration-builder.ts";
 import { ThrowNullOrUndefined, isUndefined } from "../helpers.ts";
-import { PathLike } from "node:fs";
-import { ConfigSourceOptions } from "../types/config-source-options.ts";
+import { type PathLike } from "node:fs";
+import { type ConfigSourceOptions } from "../types/config-source-options.ts";
 
 export class JsFileConfigurationSource extends ConfigurationSource<PathLike> {
   async build(): Promise<TConfiguration> {

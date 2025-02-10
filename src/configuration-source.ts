@@ -1,8 +1,8 @@
-import { TConfiguration } from "./types/configuration.ts";
+import { type TConfiguration } from "./types/configuration.ts";
 import { expand } from "./helpers.ts";
-import { ConfigSourceOptions } from "./types/config-source-options.ts";
-import { IConfiguration } from "./types/configuration.ts";
-import { ValidatorFunc } from "./types/validator-func.type.ts";
+import { type ConfigSourceOptions } from "./types/config-source-options.ts";
+import { type IConfiguration } from "./types/configuration.ts";
+import { type ValidatorFunc } from "./types/validator-func.type.ts";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class ConfigurationSource<T = any> {
