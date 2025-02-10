@@ -5,9 +5,9 @@ import {
   ConfigurationSource,
   InvalidKeyException,
   MemoryConfigurationSource,
-  TConfiguration,
-  ValidatorFunc,
-} from "../src";
+  type TConfiguration,
+  type ValidatorFunc,
+} from "../src/index.ts";
 import assert from "node:assert/strict";
 import { env } from "node:process";
 import Joi from "joi";

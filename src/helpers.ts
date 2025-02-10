@@ -1,5 +1,5 @@
 import { DOTENV_SUBSTITUTION_REGEX } from "./constants.ts";
-import { IConfiguration, TConfiguration } from "./types/configuration.ts";
+import type { IConfiguration, TConfiguration } from "./types/configuration.ts";
 
 export function ThrowNullOrUndefined(value: unknown, name: string) {
   if (isNullOrUndefined(value)) {

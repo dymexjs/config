@@ -1,8 +1,8 @@
 import { Configuration } from "./configuration.ts";
 import { ConfigurationSource } from "./configuration-source.ts";
 import { ThrowNullOrUndefined } from "./helpers.ts";
-import { IConfiguration, TConfiguration } from "./types/configuration.ts";
-import { ValidatorFunc } from "./types/validator-func.type.ts";
+import type { IConfiguration, TConfiguration } from "./types/configuration.ts";
+import type { ValidatorFunc } from "./types/validator-func.type.ts";
 
 export class ConfigurationBuilder {
   #_sources = new Set<ConfigurationSource<unknown>>();

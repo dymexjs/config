@@ -1,5 +1,5 @@
 import { test, describe } from "node:test";
-import { ConfigurationBuilder, MemoryConfigurationSource, TConfiguration } from "../../src";
+import { ConfigurationBuilder, MemoryConfigurationSource, type TConfiguration } from "../../src/index.ts";
 import * as assert from "node:assert/strict";
 import Joi from "joi";
 
