@@ -34,9 +34,9 @@
     "build": "npm run clean && npm run build:cjs && npm run build:esm && npm run build:types && npm run build:packageJson",
     "clean": "npx rimraf dist",
     "lint": "eslint",
-    "test": "globcli -- tsx --test \"tests/**/*.test.ts\"",
-    "test:coverage": "globcli -- tsx --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=lcov.info --test \"tests/**/*.test.ts\"",
-    "test:watch": "globcli -- tsx --test --watch \"tests/**/*.test.ts\"",
+    "test": "node --test --experimental-strip-types \"tests/**/*.test.ts\"",
+    "test:coverage": "node --test --experimental-strip-types --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=lcov.info \"tests/**/*.test.ts\"",
+    "test:watch": "node --test --experimental-strip-types --watch \"tests/**/*.test.ts\"",
     "format": "prettier --config .prettierrc \"src/**/*.ts\" \"tests/**/*.ts\" --write",
     "prepare": "npm run build",
     "preversion": "npm run format && npm run lint && npm test",
@@ -46,17 +46,15 @@
   "author": "João Parreira",
   "license": "ISC",
   "devDependencies": {
-    "@dymexjs/globcli": "^0.0.4",
-    "@eslint/js": "^9.20.0",
-    "@types/node": "^22.13.1",
-    "eslint": "^9.20.0",
-    "eslint-config-prettier": "^10.0.1",
+    "@eslint/js": "^9.23.0",
+    "@types/node": "^22.13.13",
+    "eslint": "^9.23.0",
+    "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-security": "^3.0.1",
     "joi": "^17.13.3",
-    "prettier": "3.5.0",
+    "prettier": "3.5.3",
     "rimraf": "^6.0.1",
-    "tsx": "^4.19.2",
-    "typescript": "^5.7.3",
-    "typescript-eslint": "^8.23.0"
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.28.0"
   }
 }
