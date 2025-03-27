@@ -2,11 +2,11 @@ import { ConfigurationBuilder } from "../configuration-builder.ts";
 import { ThrowNullOrUndefined } from "../helpers.ts";
 import { env } from "node:process";
 import { join } from "node:path";
-import { type PathLike } from "node:fs";
+import type { PathLike } from "node:fs";
 import { ConfigurationSource } from "../configuration-source.ts";
-import { type TConfiguration } from "../types/configuration.ts";
+import type { TConfiguration } from "../types/configuration.ts";
 import { readFile as nodeReadFile } from "node:fs/promises";
-import { type ConfigSourceOptions } from "../types/config-source-options.ts";
+import type { ConfigSourceOptions } from "../types/config-source-options.ts";
 
 export class UserSecretsFileConfigurationSource extends ConfigurationSource<PathLike> {
   async build(): Promise<TConfiguration> {

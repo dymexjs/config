@@ -1,10 +1,10 @@
 import { ConfigurationSource } from "../configuration-source.ts";
-import { type TConfiguration } from "../types/configuration.ts";
+import type { TConfiguration } from "../types/configuration.ts";
 import { ConfigurationBuilder } from "../configuration-builder.ts";
 import { ThrowNullOrUndefined } from "../helpers.ts";
-import { type PathLike } from "node:fs";
+import type { PathLike } from "node:fs";
 import { readFile as nodeReadFile } from "node:fs/promises";
-import { type ConfigSourceOptions } from "../types/config-source-options.ts";
+import type { ConfigSourceOptions } from "../types/config-source-options.ts";
 
 export class JsonFileConfigurationSource extends ConfigurationSource<PathLike> {
   async build(): Promise<TConfiguration> {

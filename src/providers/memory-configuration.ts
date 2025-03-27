@@ -1,9 +1,9 @@
 import { ConfigurationSource } from "../configuration-source.ts";
-import { type TConfiguration } from "../types/configuration.ts";
+import type { TConfiguration } from "../types/configuration.ts";
 import { ConfigurationBuilder } from "../configuration-builder.ts";
 import { ThrowNullOrUndefined } from "../helpers.ts";
-import { type IConfiguration } from "../types/configuration.ts";
-import { type ConfigSourceOptions } from "../types/config-source-options.ts";
+import type { IConfiguration } from "../types/configuration.ts";
+import type { ConfigSourceOptions } from "../types/config-source-options.ts";
 import { Configuration } from "../configuration.ts";
 
 export class MemoryConfigurationSource extends ConfigurationSource<TConfiguration> {
