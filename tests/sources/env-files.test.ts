@@ -2,7 +2,7 @@ import { test, describe } from "node:test";
 import { ConfigurationBuilder, type TConfiguration } from "../../src/index.ts";
 import * as assert from "node:assert/strict";
 import { env } from "node:process";
-import Joi from "joi";
+import { z } from "zod";
 
 describe("@Dymexjs/config", () => {
   describe("env files source", () => {
@@ -60,6 +60,8 @@ describe("@Dymexjs/config", () => {
                     FOO=bar
                     POSTGRESQL.BASE.USER=postgres
                     DOLLAR=$
+                    DATE='2014-10-25T03:46:20-0300'
+                    BOOLEAN=true
                     `,
         );
         t.mock.method(
@@ -130,6 +132,8 @@ describe("@Dymexjs/config", () => {
         assert.strictEqual(config.get("POSTGRESQL.MAIN.USER"), "postgres");
         assert.strictEqual(config.get("DOLLAR"), "$");
         assert.strictEqual(config.get("UNDEFINED_EXPAND_DEFAULT"), "default");
+        assert.ok(config.get("DATE") instanceof Date);
+        assert.strictEqual(config.get("BOOLEAN"), true);
       });
       test("should expand environment variables more cases", async (t) => {
         env.PASSWORD = "pas$word";
@@ -213,16 +217,13 @@ describe("@Dymexjs/config", () => {
         const configurationBuilder = new ConfigurationBuilder();
         configurationBuilder.addEnvFileConfiguration(".env", {
           validation: async (config: TConfiguration) => {
-            const schema = Joi.object({
-              ENV: Joi.string().required(),
-              KEY1: Joi.string().required(),
-              PORT: Joi.number().required(),
+            const schema = z.object({
+              ENV: z.string(),
+              KEY1: z.string(),
+              PORT: z.number(),
             });
             try {
-              return schema.validateAsync(config, {
-                abortEarly: false,
-                allowUnknown: true,
-              });
+              return schema.parse(config);
             } catch (err) {
               throw new Error("Validation failed: " + err.message);
             }
@@ -242,15 +243,12 @@ describe("@Dymexjs/config", () => {
         const configurationBuilder = new ConfigurationBuilder();
         configurationBuilder.addEnvFileConfiguration(".env", {
           validation: async (config: TConfiguration) => {
-            const schema = Joi.object({
-              ENV: Joi.string().required(),
-              KEY1: Joi.number().required(),
+            const schema = z.object({
+              ENV: z.string(),
+              KEY1: z.number(),
             });
             try {
-              return await schema.validateAsync(config, {
-                abortEarly: false,
-                allowUnknown: true,
-              });
+              return schema.parse(config);
             } catch (err) {
               throw new Error("Validation failed: " + err.message);
             }

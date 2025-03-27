@@ -10,7 +10,7 @@ import {
 } from "../src/index.ts";
 import assert from "node:assert/strict";
 import { env } from "node:process";
-import Joi from "joi";
+import { z } from "zod";
 
 describe("@Dymexjs/config", () => {
   describe("chain source", () => {
@@ -217,7 +217,7 @@ describe("@Dymexjs/config", () => {
         JS: "test",
         USER_SECRETS: "test",
         ENVFILE: "test",
-        test2_PORT: "3000",
+        test2_PORT: 3000,
       });
       delete env.test_ENV;
       delete env.test_VARIABLES;
@@ -325,13 +325,13 @@ describe("@Dymexjs/config", () => {
     });
     test("configurationBuilder - validation", async () => {
       const validationFunc: ValidatorFunc = async (config: TConfiguration) => {
-        const schema = Joi.object({
-          key1: Joi.object({
-            key2: Joi.string().required(),
+        const schema = z.object({
+          key1: z.object({
+            key2: z.string(),
           }),
         });
         try {
-          return schema.validateAsync(config);
+          return schema.parse(config);
         } catch (err) {
           throw new Error("Validation failed: " + err.message);
         }
@@ -342,13 +342,13 @@ describe("@Dymexjs/config", () => {
     });
     test("configurationBuilder - validation fail", async () => {
       const validationFunc: ValidatorFunc = async (config: TConfiguration) => {
-        const schema = Joi.object({
-          key1: Joi.object({
-            key2: Joi.number().required(),
+        const schema = z.object({
+          key1: z.object({
+            key2: z.number(),
           }),
         });
         try {
-          return await schema.validateAsync(config);
+          return schema.parse(config);
         } catch (err) {
           throw new Error("Validation failed: " + err.message);
         }

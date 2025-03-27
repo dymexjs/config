@@ -1,7 +1,7 @@
 import { test, describe } from "node:test";
 import { ConfigurationBuilder, MemoryConfigurationSource, type TConfiguration } from "../../src/index.ts";
 import * as assert from "node:assert/strict";
-import Joi from "joi";
+import { z } from "zod";
 
 describe("@Dymexjs/config", () => {
   describe("memory source", () => {
@@ -95,16 +95,13 @@ describe("@Dymexjs/config", () => {
         { key1: { key2: "ValueInMem1" } },
         {
           validation: async (config: TConfiguration) => {
-            const schema = Joi.object({
-              key1: Joi.object({
-                key2: Joi.string().required(),
+            const schema = z.object({
+              key1: z.object({
+                key2: z.string(),
               }),
             });
             try {
-              return schema.validateAsync(config, {
-                abortEarly: false,
-                allowUnknown: true,
-              });
+              return schema.parse(config);
             } catch (err) {
               throw new Error("Validation failed: " + err.message);
             }
@@ -119,16 +116,13 @@ describe("@Dymexjs/config", () => {
         { key1: { key2: "ValueInMem1" } },
         {
           validation: async (config: TConfiguration) => {
-            const schema = Joi.object({
-              key1: Joi.object({
-                key2: Joi.number().required(),
+            const schema = z.object({
+              key1: z.object({
+                key2: z.number(),
               }),
             });
             try {
-              return await schema.validateAsync(config, {
-                abortEarly: false,
-                allowUnknown: true,
-              });
+              return schema.parse(config);
             } catch (err) {
               throw new Error("Validation failed: " + err.message);
             }
