@@ -2,6 +2,16 @@
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.1.4 - 2025-03-27
+
+### What's Changed 👀
+
+### 🚀 Features
+
+- chore: add coercion @n3okill ([#12](https://github.com/$OWNER/$REPOSITORY/pull/12))
+
+**Full Changelog**: https://github.com/dymexjs/config/compare/v0.1.3...v0.1.4
+
 ## v0.1.3 - 2025-02-10
 
 ### What's Changed 👀
