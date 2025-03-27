@@ -1,9 +1,9 @@
 import { env as originalEnv } from "node:process";
-import { type TConfiguration } from "../types/configuration.ts";
+import type { TConfiguration } from "../types/configuration.ts";
 import { ConfigurationBuilder } from "../configuration-builder.ts";
 import { ConfigurationSource } from "../configuration-source.ts";
 import { ThrowNullOrUndefined } from "../helpers.ts";
-import { type ConfigSourceOptions } from "../types/config-source-options.ts";
+import type { ConfigSourceOptions } from "../types/config-source-options.ts";
 
 export class EnvVariablesConfigurationSource extends ConfigurationSource<string | Array<string>> {
   constructor(prefix: string | Array<string> = "", options?: ConfigSourceOptions) {

@@ -1,7 +1,7 @@
 import { deepMixIn, isObject, isUndefined } from "./helpers.ts";
-import { type IConfiguration } from "./types/configuration.ts";
+import type { IConfiguration } from "./types/configuration.ts";
 import { InvalidKeyException } from "./types/exceptions/invalid-key.exception.ts";
-import { type TConfiguration } from "./types/configuration.ts";
+import type { TConfiguration } from "./types/configuration.ts";
 
 export class Configuration implements IConfiguration {
   #_configuration: TConfiguration = {};

@@ -2,7 +2,7 @@ import { test, describe } from "node:test";
 import { ConfigurationBuilder, type TConfiguration } from "../../src/index.ts";
 import * as assert from "node:assert/strict";
 import { env } from "process";
-import Joi from "joi";
+import { z } from "zod";
 
 describe("@Dymexjs/config", () => {
   describe("env variables source", () => {
@@ -17,16 +17,15 @@ describe("@Dymexjs/config", () => {
     test("validation", async () => {
       const configurationBuilder = new ConfigurationBuilder();
       env.test_key1 = "ValueInMem1";
+      env.test_port = "3000";
       configurationBuilder.addEnvVariablesConfiguration("test_", {
         validation: async (config: TConfiguration) => {
-          const schema = Joi.object({
-            test_key1: Joi.string().required(),
+          const schema = z.object({
+            test_key1: z.string(),
+            test_port: z.number(),
           });
           try {
-            return await schema.validateAsync(config, {
-              abortEarly: false,
-              allowUnknown: true,
-            });
+            return schema.parse(config);
           } catch (err) {
             throw new Error("Validation failed: " + err.message);
           }
@@ -34,20 +33,18 @@ describe("@Dymexjs/config", () => {
       });
       await assert.doesNotReject(async () => await configurationBuilder.build());
       delete env.test_key1;
+      delete env.test_port;
     });
     test("validation fail", async () => {
       env.test_key1 = "ValueInMem1";
       const configurationBuilder = new ConfigurationBuilder();
       configurationBuilder.addEnvVariablesConfiguration("test_", {
         validation: async (config: TConfiguration) => {
-          const schema = Joi.object({
-            key1: Joi.number().required(),
+          const schema = z.object({
+            key1: z.number(),
           });
           try {
-            return await schema.validateAsync(config, {
-              abortEarly: false,
-              allowUnknown: true,
-            });
+            return schema.parse(config);
           } catch (err) {
             throw new Error("Validation failed: " + err.message);
           }

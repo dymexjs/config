@@ -1,7 +1,7 @@
 import { test, describe } from "node:test";
 import { ConfigurationBuilder, type TConfiguration } from "../../src/index.ts";
 import * as assert from "node:assert/strict";
-import Joi from "joi";
+import { z } from "zod";
 
 describe("@Dymexjs/config", () => {
   describe("js files source", () => {
@@ -50,15 +50,12 @@ describe("@Dymexjs/config", () => {
       const configurationBuilder = new ConfigurationBuilder();
       configurationBuilder.addJsFileConfiguration("file.js", {
         validation: async (config: TConfiguration) => {
-          const schema = Joi.object({
-            ENV: Joi.string().required(),
-            KEY1: Joi.string().required(),
+          const schema = z.object({
+            ENV: z.string(),
+            KEY1: z.string(),
           });
           try {
-            return schema.validateAsync(config, {
-              abortEarly: false,
-              allowUnknown: true,
-            });
+            return schema.parse(config);
           } catch (err) {
             throw new Error("Validation failed: " + err.message);
           }
@@ -79,15 +76,12 @@ describe("@Dymexjs/config", () => {
       const configurationBuilder = new ConfigurationBuilder();
       configurationBuilder.addJsFileConfiguration("file.js", {
         validation: async (config: TConfiguration) => {
-          const schema = Joi.object({
-            ENV: Joi.string().required(),
-            KEY1: Joi.number().required(),
+          const schema = z.object({
+            ENV: z.string(),
+            KEY1: z.number(),
           });
           try {
-            return await schema.validateAsync(config, {
-              abortEarly: false,
-              allowUnknown: true,
-            });
+            return schema.parse(config);
           } catch (err) {
             throw new Error("Validation failed: " + err.message);
           }

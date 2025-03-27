@@ -1,11 +1,11 @@
-import { type PathLike } from "node:fs";
+import type { PathLike } from "node:fs";
 import { readFile as nodeReadFile } from "node:fs/promises";
-import { type TConfiguration } from "../types/configuration.ts";
+import type { TConfiguration } from "../types/configuration.ts";
 import { ConfigurationSource } from "../configuration-source.ts";
 import { ENV_LINE } from "../constants.ts";
 import { ConfigurationBuilder } from "../configuration-builder.ts";
 import { ThrowNullOrUndefined } from "../helpers.ts";
-import { type ConfigSourceOptions } from "../types/config-source-options.ts";
+import type { ConfigSourceOptions } from "../types/config-source-options.ts";
 
 export class EnvFilesConfigurationSource extends ConfigurationSource<PathLike> {
   async build(): Promise<TConfiguration> {
@@ -25,7 +25,6 @@ export class EnvFilesConfigurationSource extends ConfigurationSource<PathLike> {
     while ((match = ENV_LINE.exec(contents)) !== null) {
       const key = match[1].trim();
       let value = (match[3] || match[4] || "").trim(); // Match[3] é para valores multilinha, match[4] para valores simples
-      // Check if double quoted
 
       // Remove surrounding quotes
       value = value.replace(/^(['"`])([\s\S]*)\1$/gm, "$2");
